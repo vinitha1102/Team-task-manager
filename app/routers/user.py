@@ -18,11 +18,21 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Username already registered")
     
     hashed = hash_password(user.password)
-    new_user = models.User(username=user.username, password=hashed)
+    new_user = models.User(
+        username=user.username,
+        password=hashed,
+        is_admin=user.is_admin  # ✅ include this line
+    )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
     return new_user
+
+
+# Get current user profile
+@router.get("/profile", response_model=schemas.UserOut)
+def get_profile(current_user: models.User = Depends(get_current_user)):
+    return current_user
 
 # Login
 @router.post("/login", response_model=schemas.Token)

@@ -1,12 +1,21 @@
-# Python cache
+# .gitignore
+
+# Python
 __pycache__/
 *.pyc
-
-# Virtual environment
+*.pyo
+*.pyd
+env/
 venv/
-
-# Environment variables
+instance/
 .env
 
-# VS Code settings (optional)
-.vscode/
+# Node.js
+node_modules/
+dist/
+build/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

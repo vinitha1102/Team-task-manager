@@ -34,6 +34,11 @@ def delete_project(project_id: int, db: Session = Depends(get_db), admin=Depends
     db.commit()
     return {"message": "Project deleted"}
 
+# Get all users (for task assignment)
+@router.get("/users", response_model=List[schemas.UserOut])
+def get_users(db: Session = Depends(get_db), admin=Depends(get_current_admin)):
+    return db.query(models.User).all()
+
 # Assign task
 @router.post("/tasks", response_model=schemas.TaskOut)
 def assign_task(task: schemas.TaskBase, db: Session = Depends(get_db), admin=Depends(get_current_admin)):

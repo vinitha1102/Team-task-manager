@@ -5,7 +5,8 @@ from typing import Optional, List
 class UserCreate(BaseModel):
     username: str
     password: str
-
+    is_admin: bool 
+    
 class UserOut(BaseModel):
     id: int
     username: str
@@ -42,7 +43,6 @@ class TaskOut(TaskBase):
 
 class CommentBase(BaseModel):
     text: str
-    task_id: int
 
 class CommentOut(CommentBase):
     id: int
